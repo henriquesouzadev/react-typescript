@@ -1,22 +1,31 @@
-import React from "react"
-import Button from "./Button"
-import Checkbox from "./Checkbox"
+import React from "react";
+import "./App.css";
+import Resumo from "./Pages/Resumo";
+import Sidenav from "./Components/Sidenav";
+import Header from "./Components/Header";
+import { DataContextProvider } from "./Context/DataContext";
+import Vendas from "./Pages/Vendas";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Venda from "./Pages/Venda";
 
 function App() {
-  const [total, setTotal] = React.useState(0)
-
-  const incrementar = () => {
-    setTotal(total => total + 1)
-  }
-
   return (
-    <div>
-      <p>Total: {total}</p>
-      <Button total={total} setTotal={setTotal} />
-      <Checkbox label="Termos e condições" />
-    </div>
-
-  )
+    <BrowserRouter>
+      <DataContextProvider>
+        <div className="container">
+          <Sidenav />
+          <main>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Resumo />} />
+              <Route path="/vendas" element={<Vendas />} />
+              <Route path="/vendas/:id" element={<Venda />} />
+            </Routes>
+          </main>
+        </div>
+      </DataContextProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
